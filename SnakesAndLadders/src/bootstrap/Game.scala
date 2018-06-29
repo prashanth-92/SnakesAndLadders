@@ -11,11 +11,9 @@ import core.PromptEngine
 
 object Game {
 	def main(args: Array[String]): Unit = {
-	  println("start")
 	  val (snakePos: List[SnakePosition], ladderPos: List[LadderPosition]) = ComponentEngine.generate(DifficultyLevel.EASY)
 	  val players: List[Player] = PlayerEngine.createPlayers()
-	  println("List of Players")
-	  players.foreach(println)
+	  printGameSetup(snakePos, ladderPos, players)
 	  var continueGame: Boolean = true
 	  var activePlayer: Int = PlayerEngine.getFirstPlayer(players)
 	  while(continueGame){
@@ -29,18 +27,22 @@ object Game {
 	    else if(input.equalsIgnoreCase("quit") && PromptEngine.quitPrompt().equalsIgnoreCase("Y")){
   	    continueGame = false
 	    }
-	  }
-	  println("------snakes")
-	  println(snakePos)
-	  println("------ladders")
-	  println(ladderPos)
-	  println("------players")
-	  print(players)
+	  } 
 	}
 	def play(activePlayer: Player, snakePos: List[SnakePosition], ladderPos: List[LadderPosition]): Unit = {
 	  val pos: Int = Helper.rollDice()
-	  println("Dice:"+pos)
+	  println("Dice Rolled. Got :"+pos)
 	  activePlayer.move(pos,snakePos,ladderPos)
 	  println(activePlayer.position)
+	}
+	def printGameSetup(snakePos: List[SnakePosition], ladderPos: List[LadderPosition], players: List[Player]): Unit = {
+    println("Snake and Ladder Game start")
+  
+	  println("Snake Positions:")
+	  println(snakePos)
+	  println("Ladder Positions:")
+	  println(ladderPos)
+	  println("List of Players:")
+	  players.foreach(println)
 	}
 }

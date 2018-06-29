@@ -12,37 +12,23 @@ class Player(var position: Point, val name: String) {
 			}
 			else{
 				position.y += (position.x + places) / Constants.COLUMNS
-						position.x = (position.x + places) - Constants.COLUMNS 
+				position.x = (position.x + places) - Constants.COLUMNS 
 			}
 			handleSnake(snakePos)
 			handleLadder(ladderPos)
 	}
 	private def handleSnake(snakePos: List[SnakePosition]): Unit = {
-			val filteredSnakes = snakePos.filter(equals)
+			val filteredSnakes = snakePos.filter(x => equals(x.start, position))
 					if(!filteredSnakes.isEmpty){
 						position.move(filteredSnakes(0).end)
 					}
-			/*snakePos.foreach(spos=> {
-      if(equals(spos.start, position)){
-        println("-----snake")
-        println(spos)
-        position.move(spos.end)
-      }
-    })*/
+
 	}
 	private def handleLadder(ladderPos: List[LadderPosition]): Unit = {
-			val filteredLadders = ladderPos.filter(equals)
+			val filteredLadders = ladderPos.filter(x => equals(x.start, position))
 					if(!filteredLadders.isEmpty){
 						position.move(filteredLadders(0).end)
 					}
-
-			/*ladderPos.foreach(lpos => {
-      if(equals(lpos.start, position)){
-        println("-----ladder")
-        println(lpos)
-        position.move(lpos.end)
-      }
-    })*/
 	}
 	private def equals(p1: Point, p2: Point): Boolean = {
 			(p1.x == p2.x && p1.y == p2.y)
