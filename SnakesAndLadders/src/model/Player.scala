@@ -14,6 +14,10 @@ class Player(var position: Point, val name: String) {
 				position.y += (position.x + places) / Constants.COLUMNS
 				position.x = (position.x + places) - Constants.COLUMNS 
 			}
+			if(position.y >= Constants.COLUMNS && position.x >= Constants.ROWS){
+			  val moveBackPlaces: Int = places * -1
+			  move(moveBackPlaces, snakePos, ladderPos)
+			}
 			handleSnake(snakePos)
 			handleLadder(ladderPos)
 	}

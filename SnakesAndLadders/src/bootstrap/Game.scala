@@ -21,19 +21,20 @@ object Game {
 	    println("Current Player: "+player.name+". Press 1 to roll the dice")
 	    val input = PromptEngine.prompt() 
 	    if(input.equalsIgnoreCase("1")){
-	      play(player, snakePos, ladderPos)
+	      continueGame = play(player, snakePos, ladderPos)
 	      activePlayer = PlayerEngine.getNextPlayer(players, activePlayer)
 	    }
 	    else if(input.equalsIgnoreCase("quit") && PromptEngine.quitPrompt().equalsIgnoreCase("Y")){
-  	    continueGame = false
+  	      continueGame = false
 	    }
 	  } 
 	}
-	def play(activePlayer: Player, snakePos: List[SnakePosition], ladderPos: List[LadderPosition]): Unit = {
+	def play(activePlayer: Player, snakePos: List[SnakePosition], ladderPos: List[LadderPosition]): Boolean = {
 	  val pos: Int = Helper.rollDice()
 	  println("Dice Rolled. Got :"+pos)
 	  activePlayer.move(pos,snakePos,ladderPos)
 	  println(activePlayer.position)
+	  !Helper.reachedEnd(activePlayer.position)
 	}
 	def printGameSetup(snakePos: List[SnakePosition], ladderPos: List[LadderPosition], players: List[Player]): Unit = {
     println("Snake and Ladder Game start")
